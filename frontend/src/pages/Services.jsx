@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // Guaranteed luxury men's grooming photography from Pexels
 const defaultImages = {
   'Haircut': 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80',
-  'Beard Trim': 'https://images.unsplash.com/photo-1590540179852-2110a54f813a?q=80&w=800&auto=format&fit=crop',
+  'Beard Trim': 'https://images.pexels.com/photos/3993291/pexels-photo-3993291.jpeg?auto=compress&cs=tinysrgb&w=800',
   'Hair Styling': 'https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=800&q=80'
 };
 
@@ -40,15 +40,15 @@ const Services = () => {
 
   return (
     <div className="min-h-screen pt-40 pb-32 px-6 max-w-[1400px] mx-auto">
-      <div className="text-center mb-28">
-        <h1 className="text-6xl md:text-7xl font-serif text-gold mb-8 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]">Premium Services</h1>
-        <p className="text-zinc-400 uppercase tracking-[0.3em] text-sm md:text-base font-light">The pinnacle of men's grooming & refinement</p>
+      <div className="text-center mb-16">
+        <h1 className="text-5xl md:text-6xl font-serif text-gold mb-6 tracking-wide drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]">Premium Services</h1>
+        <p className="text-zinc-400 uppercase tracking-[0.3em] text-xs md:text-sm font-light">The pinnacle of men's grooming & refinement</p>
       </div>
       
       {services.length === 0 ? (
         <div className="text-center text-neutral-400 text-lg uppercase tracking-widest">Unable to load services. Please ensure server is running.</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 relative" style={{ perspective: 2000 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative" style={{ perspective: 2000 }}>
           {services.map((service, index) => {
             const displayImage = defaultImages[service.name] || service.image;
 
@@ -68,7 +68,7 @@ const Services = () => {
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {displayImage && (
-                  <div className="w-full h-[380px] overflow-hidden bg-black relative">
+                  <div className="w-full h-[280px] overflow-hidden bg-black relative">
                     <div className="absolute inset-0 bg-neutral-950/30 group-hover:bg-neutral-950/0 transition-colors duration-700 z-10" />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent z-20 opacity-95" />
                     <img 
@@ -80,13 +80,13 @@ const Services = () => {
                   </div>
                 )}
                 
-                <div className="p-10 flex flex-col flex-grow relative z-20 bg-gradient-to-b from-transparent to-zinc-950/95 -mt-24">
-                  <div className="flex justify-between items-end mb-6">
-                    <h3 className="text-4xl font-serif text-white group-hover:text-gold transition-colors duration-500 drop-shadow-md">{service.name}</h3>
-                    <span className="text-gold font-serif text-3xl drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] block pb-1">€{service.price}</span>
+                <div className="p-8 flex flex-col flex-grow relative z-20 bg-gradient-to-b from-transparent to-zinc-950/95 -mt-16">
+                  <div className="flex justify-between items-end mb-4">
+                    <h3 className="text-3xl font-serif text-white group-hover:text-gold transition-colors duration-500 drop-shadow-md">{service.name}</h3>
+                    <span className="text-gold font-serif text-2xl drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] block pb-1">€{service.price}</span>
                   </div>
                   
-                  <p className="text-zinc-400 font-light mb-8 text-base leading-relaxed">{service.description}</p>
+                  <p className="text-zinc-400 font-light mb-6 text-sm leading-relaxed line-clamp-2">{service.description}</p>
                   
                   <div className="mb-10">
                     <Link 
