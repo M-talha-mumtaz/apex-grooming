@@ -17,7 +17,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/services');
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/services`);
         
         // Instantly eliminate duplicates
         const uniqueData = Array.from(new Map(data.map(item => [item.name, item])).values());

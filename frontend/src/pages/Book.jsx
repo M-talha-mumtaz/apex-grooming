@@ -21,7 +21,7 @@ const Book = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/services');
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/services`);
         const uniqueData = Array.from(new Map(data.map(item => [item.name, item])).values());
 
         // Ensure exactly 3 services are shown if they exist
@@ -79,7 +79,7 @@ const Book = () => {
     try {
       const names = services.filter(s => formData.selectedServices.includes(s._id)).map(s => s.name);
       
-      await axios.post('http://localhost:5000/api/bookings', { 
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/bookings`, { 
         ...formData, 
         services: formData.selectedServices,
         serviceNames: names

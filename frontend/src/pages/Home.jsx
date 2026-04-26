@@ -98,7 +98,7 @@ const Home = () => {
         
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto will-change-transform" ref={textRef}>
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-gold tracking-tight mb-8 glow-text leading-tight">
-            Lumina <br/> Grooming
+            Apex <br/> Grooming
           </h1>
           <p className="text-lg md:text-xl text-neutral-300 font-light mb-14 tracking-[0.3em] uppercase opacity-90">
             {t('hero_subtitle')}
@@ -120,6 +120,22 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Brand Philosophy Section */}
+      <section className="py-32 md:py-48 bg-neutral-950 relative z-10 flex items-center justify-center text-center px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-center mb-10">
+             <div className="h-20 w-[1px] bg-gradient-to-b from-transparent via-gold/50 to-transparent"></div>
+          </div>
+          <h2 className="text-xs md:text-sm uppercase tracking-[0.4em] text-gold mb-8 font-semibold">The Apex Philosophy</h2>
+          <p className="text-3xl md:text-5xl font-serif text-neutral-200 leading-snug md:leading-snug font-light">
+            Grooming is an <span className="text-gold italic">art form</span>. It's not just about looking your best, it's about <span className="text-gold italic">feeling unstoppable</span>. Experience the pinnacle of modern refinement.
+          </p>
+          <div className="flex justify-center mt-12">
+             <div className="h-20 w-[1px] bg-gradient-to-b from-transparent via-gold/50 to-transparent"></div>
+          </div>
+        </div>
+      </section>
+
       {/* Transitional Parallax Graphic */}
       <section className="h-[60vh] bg-neutral-950 flex items-center justify-center overflow-hidden relative">
          <img 
@@ -129,9 +145,9 @@ const Home = () => {
            loading="lazy"
            className="w-full h-[120%] object-cover absolute opacity-30 mix-blend-luminosity will-change-transform"
          />
-         <div className="relative z-10 text-center max-w-2xl px-6">
-            <h2 className="text-3xl text-gold font-serif italic mb-4">"A masterpiece in every cut."</h2>
-            <div className="h-px w-24 bg-gold mx-auto"></div>
+         <div className="relative z-10 text-center max-w-3xl px-6">
+            <h2 className="text-4xl md:text-5xl text-gold font-serif italic mb-8 tracking-wide drop-shadow-lg">"A masterpiece in every cut."</h2>
+            <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
          </div>
       </section>
 

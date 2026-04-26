@@ -14,18 +14,6 @@ const resources = {
       "hero_subtitle": "Elevating your style with precision and luxury.",
       "book_appointment": "Book Appointment"
     }
-  },
-  fi: {
-    translation: {
-      "home": "Koti",
-      "services": "Palvelut",
-      "booking": "Varaa Nyt",
-      "about": "Tietoa",
-      "contact": "Yhteystiedot",
-      "hero_title": "Ensiluokkainen Grooming-Kokemus",
-      "hero_subtitle": "Nosta tyylisi uudelle tasolle tarkkuudella ja luksuksella.",
-      "book_appointment": "Varaa Aika"
-    }
   }
 };
 

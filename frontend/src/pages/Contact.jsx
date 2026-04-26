@@ -18,9 +18,9 @@ const Contact = () => {
             <div>
               <h3 className="text-gold uppercase tracking-wider text-sm font-semibold mb-2">Location</h3>
               <p className="text-zinc-300 font-light leading-relaxed">
-                Mannerheimintie 12<br />
-                00100 Helsinki<br />
-                Finland
+                123 5th Ave<br />
+                New York, NY 10003<br />
+                USA
               </p>
             </div>
           </div>
@@ -29,7 +29,7 @@ const Contact = () => {
             <Phone className="text-gold mt-1 flex-shrink-0" size={28} />
             <div>
               <h3 className="text-gold uppercase tracking-wider text-sm font-semibold mb-2">Phone</h3>
-              <p className="text-zinc-300 font-light leading-relaxed">+358 12 345 6789</p>
+              <p className="text-zinc-300 font-light leading-relaxed">+1 212 555 0198</p>
             </div>
           </div>
 
@@ -37,7 +37,7 @@ const Contact = () => {
             <Mail className="text-gold mt-1 flex-shrink-0" size={28} />
             <div>
               <h3 className="text-gold uppercase tracking-wider text-sm font-semibold mb-2">Email</h3>
-              <p className="text-zinc-300 font-light leading-relaxed">appointments@luminagrooming.fi</p>
+              <p className="text-zinc-300 font-light leading-relaxed">appointments@apexgrooming.com</p>
             </div>
           </div>
 
@@ -54,13 +54,13 @@ const Contact = () => {
         {/* Interactive VIP Map */}
         <div className="h-[600px] border border-neutral-800 relative bg-neutral-950 overflow-hidden group">
           <iframe 
-            src="https://maps.google.com/maps?q=Mannerheimintie%2012,%2000100%20Helsinki,%20Finland&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=123%205th%20Ave,%20New%20York,%20NY%2010003,%20USA&t=&z=14&ie=UTF8&iwloc=&output=embed"
             className="absolute inset-0 w-full h-full grayscale invert-[0.95] contrast-125 opacity-70 group-hover:opacity-100 transition-opacity duration-700"
             frameBorder="0"
             scrolling="no"
             marginHeight="0"
             marginWidth="0"
-            title="Lumina Grooming Location"
+            title="Apex Grooming Location"
           ></iframe>
         </div>
       </div>

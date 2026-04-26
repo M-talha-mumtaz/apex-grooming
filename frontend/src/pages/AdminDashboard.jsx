@@ -28,7 +28,7 @@ const AdminDashboard = () => {
     try {
       setIsLoading(true);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const { data } = await axios.get('http://localhost:5000/api/bookings', config);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/bookings`, config);
       setBookings(data);
     } catch (err) {
       console.error(err);
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
       setBookings(prev => prev.map(b => b._id === id ? { ...b, status } : b));
       
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.put(`http://localhost:5000/api/bookings/${id}/status`, { status }, config);
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/bookings/${id}/status`, { status }, config);
       showToast(`Booking ${status} successfully`);
     } catch (err) {
       console.error(err);
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
       try {
         setBookings(prev => prev.filter(b => b._id !== id));
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
-        await axios.delete(`http://localhost:5000/api/bookings/${id}`, config);
+        await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/bookings/${id}`, config);
         showToast('Booking deleted');
       } catch (err) {
         console.error(err);
