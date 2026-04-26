@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { useStore } from '../store/useStore';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, Check, X, Search, Calendar, LogOut, Loader2, Filter } from 'lucide-react';
+import { Trash2, Check, X, Search, Calendar, Loader2, Filter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminDashboard = () => {
@@ -77,10 +77,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/admin/login');
-  };
 
   // Memoized filters and stats
   const filteredBookings = useMemo(() => {
@@ -106,17 +102,11 @@ const AdminDashboard = () => {
   }, [bookings]);
 
   return (
-    <div className="min-h-screen pt-4 pb-20 px-6 max-w-7xl mx-auto text-zinc-200">
-      {/* Header and Logout */}
-      <div className="flex justify-between items-end mb-10 border-b border-zinc-800 pb-6">
-        <div>
-          <h1 className="text-4xl font-serif text-gold">Dashboard</h1>
-          <p className="text-zinc-500 mt-2 text-sm tracking-wide">Manage your salon appointments</p>
-        </div>
-        <button onClick={handleLogout} className="flex items-center space-x-2 text-zinc-400 hover:text-red-400 transition-colors">
-          <LogOut size={18} />
-          <span className="text-sm uppercase tracking-widest font-semibold">Logout</span>
-        </button>
+    <div className="min-h-screen py-10 px-6 max-w-7xl mx-auto text-zinc-200">
+      {/* Dashboard Title Section */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-serif text-gold">System Overview</h1>
+        <p className="text-zinc-500 mt-2 text-sm tracking-wide italic">Manage your premium salon appointments and client requests</p>
       </div>
 
       {/* Summary Cards */}

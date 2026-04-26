@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut, ExternalLink, ShieldCheck } from 'lucide-react';
+import { useStore } from '../store/useStore';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   const { t } = useTranslation();
@@ -24,10 +26,76 @@ const Layout = ({ children }) => {
     { name: t('contact'), path: '/contact' },
   ];
 
-  const isAdminRoute = location.pathname.startsWith('/admin');
+  const { user, logout } = useStore();
+  const navigate = useNavigate();
 
-  if (isAdminRoute) {
-    return <div className="bg-zinc-950 min-h-screen text-zinc-200">{children}</div>;
+  const handleLogout = () => {
+    logout();
+    navigate('/admin/login');
+  };
+
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isLoginPage = location.pathname === '/admin/login';
+
+  if (isAdminRoute && !isLoginPage) {
+    return (
+      <div className="bg-neutral-950 min-h-screen text-zinc-200 flex flex-col">
+        {/* Admin Navbar */}
+        <header className="bg-neutral-900 border-b border-gold/10 py-4 px-6 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <div className="flex items-center space-x-4">
+              <Link to="/admin/dashboard" className="text-xl font-serif text-gold tracking-widest uppercase">
+                Apex <span className="text-[10px] bg-gold/10 px-2 py-0.5 ml-2 border border-gold/20 font-sans tracking-normal">Admin</span>
+              </Link>
+              <div className="h-6 w-px bg-zinc-800 hidden md:block"></div>
+              <Link to="/" className="hidden md:flex items-center space-x-2 text-zinc-400 hover:text-gold transition-colors text-xs uppercase tracking-widest">
+                <ExternalLink size={14} />
+                <span>Visit Site</span>
+              </Link>
+            </div>
+
+            <div className="flex items-center space-x-6">
+              <div className="hidden sm:flex items-center space-x-3 text-right">
+                <div className="text-[10px] text-zinc-500 uppercase tracking-tighter">Connected as</div>
+                <div className="text-xs font-medium text-zinc-300">{user?.email || 'Administrator'}</div>
+              </div>
+              <button 
+                onClick={handleLogout}
+                className="flex items-center space-x-2 text-zinc-400 hover:text-red-400 transition-colors group"
+              >
+                <LogOut size={18} className="group-hover:-translate-x-1 transition-transform" />
+                <span className="text-xs uppercase tracking-widest font-bold">Logout</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Admin Main Content */}
+        <main className="flex-grow">
+          {children}
+        </main>
+
+        {/* Admin Footer */}
+        <footer className="bg-neutral-950 border-t border-zinc-900 py-8 px-6">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-zinc-600 text-[10px] uppercase tracking-[0.2em]">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <ShieldCheck size={14} className="text-gold/50" />
+              <span>Apex Management System &copy; {new Date().getFullYear()}</span>
+            </div>
+            <div className="flex space-x-8">
+              <Link to="/" className="hover:text-gold transition-colors">Client Website</Link>
+              <Link to="/admin/dashboard" className="hover:text-gold transition-colors">Dashboard</Link>
+              <button onClick={handleLogout} className="hover:text-red-400 transition-colors">Security Exit</button>
+            </div>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
+  // Admin Login Page (Simple layout)
+  if (isLoginPage) {
+    return <div className="bg-neutral-950 min-h-screen text-zinc-200">{children}</div>;
   }
 
   return (
