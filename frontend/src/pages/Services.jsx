@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 
-// Guaranteed luxury men's grooming photography from Pexels
+// Guaranteed luxury men's grooming photography from Unsplash
 const defaultImages = {
   'Haircut': 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80',
   'Beard Trim': 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop',
@@ -14,25 +15,24 @@ const defaultImages = {
 const Services = () => {
   const { t } = useTranslation();
   const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     const fetchServices = async () => {
       try {
+        setIsLoading(true);
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/services`);
         
-        // Instantly eliminate duplicates
         const uniqueData = Array.from(new Map(data.map(item => [item.name, item])).values());
-        
-        // Force EXACTLY 3 requested services regardless of database state
         const targetNames = ['Haircut', 'Beard Trim', 'Hair Styling'];
         const strictlyThree = uniqueData.filter(item => targetNames.includes(item.name));
-        
-        // Guarantee proper ordering
         strictlyThree.sort((a, b) => targetNames.indexOf(a.name) - targetNames.indexOf(b.name));
         
         setServices(strictlyThree);
       } catch (error) {
         console.error('Error fetching services', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchServices();
@@ -45,8 +45,15 @@ const Services = () => {
         <p className="text-zinc-400 uppercase tracking-[0.3em] text-[10px] md:text-xs font-light">The pinnacle of men's grooming & refinement</p>
       </div>
       
-      {services.length === 0 ? (
-        <div className="text-center text-neutral-400 text-lg uppercase tracking-widest">Unable to load services. Please ensure server is running.</div>
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center py-24 space-y-4">
+          <Loader2 className="animate-spin text-gold" size={48} />
+          <span className="text-zinc-500 uppercase tracking-[0.3em] text-[10px]">Loading Collections...</span>
+        </div>
+      ) : services.length === 0 ? (
+        <div className="text-center py-24">
+          <div className="text-zinc-700 text-sm uppercase tracking-widest font-light">Service collections are currently unavailable.</div>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative" style={{ perspective: 2000 }}>
           {services.map((service, index) => {
