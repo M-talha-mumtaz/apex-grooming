@@ -1,130 +1,96 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Phone, Mail } from 'lucide-react';
-import { setOptions, importLibrary } from '@googlemaps/js-api-loader';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 const Contact = () => {
   const { t } = useTranslation();
-  const mapRef = useRef(null);
-
-  useEffect(() => {
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    if (!apiKey) return;
-
-    setOptions({
-      apiKey: apiKey,
-      version: 'weekly',
-    });
-
-    Promise.all([
-      importLibrary('maps'),
-      importLibrary('marker'),
-    ]).then(([{ Map }, { Marker }]) => {
-      if (!mapRef.current) return;
-
-      const position = { lat: 40.7380, lng: -73.9920 };
-      const map = new Map(mapRef.current, {
-        center: position,
-        zoom: 15,
-        styles: [
-          { elementType: 'geometry', stylers: [{ color: '#18181b' }] },
-          { elementType: 'labels.text.stroke', stylers: [{ color: '#18181b' }] },
-          { elementType: 'labels.text.fill', stylers: [{ color: '#71717a' }] },
-          {
-            featureType: 'administrative.locality',
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#d4af37' }]
-          },
-          {
-            featureType: 'poi',
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#d4af37', opacity: 0.5 }]
-          },
-          {
-            featureType: 'road',
-            elementType: 'geometry',
-            stylers: [{ color: '#27272a' }]
-          },
-          {
-            featureType: 'road',
-            elementType: 'geometry.stroke',
-            stylers: [{ color: '#3f3f46' }]
-          },
-          {
-            featureType: 'road',
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#71717a' }]
-          },
-          {
-            featureType: 'water',
-            elementType: 'geometry',
-            stylers: [{ color: '#09090b' }]
-          }
-        ],
-        disableDefaultUI: true,
-        zoomControl: true,
-      });
-
-      new Marker({
-        position: position,
-        map: map,
-        title: 'Apex Grooming',
-      });
-    }).catch(e => {
-      console.error('Google Maps Load Error:', e);
-    });
-  }, []);
 
   return (
-    <div className="min-h-screen pt-40 pb-20 px-6 max-w-6xl mx-auto">
-      <h1 className="text-6xl font-serif text-gold text-center mb-16 tracking-widest uppercase drop-shadow-lg">{t('contact')}</h1>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div className="space-y-10 bg-zinc-900/40 p-12 border border-zinc-800 backdrop-blur-md">
-          <h2 className="text-3xl font-serif text-zinc-200 border-b border-gold/10 pb-6 tracking-wide">Get In Touch</h2>
-
-          <div className="flex items-start space-x-6 group">
-            <MapPin className="text-gold mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" size={32} />
-            <div>
-              <h3 className="text-gold uppercase tracking-[0.2em] text-xs font-bold mb-3">Location</h3>
-              <p className="text-zinc-400 font-light leading-relaxed">
-                123 5th Ave<br />
-                New York, NY 10003<br />
-                USA
-              </p>
+    <div className="min-h-screen pt-40 pb-32 px-6 max-w-5xl mx-auto">
+      <div className="text-center mb-24">
+        <h1 className="text-6xl md:text-7xl font-serif text-gold mb-8 tracking-widest uppercase drop-shadow-lg">
+          {t('contact') || 'Contact Us'}
+        </h1>
+        <p className="text-zinc-400 uppercase tracking-[0.4em] text-xs md:text-sm font-light">
+          Experience the pinnacle of grooming excellence
+        </p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+        {/* Contact Details Card */}
+        <div className="space-y-12 bg-zinc-900/40 p-10 lg:p-14 border border-zinc-800/50 backdrop-blur-md rounded-sm relative overflow-hidden group">
+          <div className="absolute top-0 left-0 w-1 h-full bg-gold/30 group-hover:bg-gold transition-colors duration-500" />
+          
+          <h2 className="text-3xl font-serif text-zinc-100 border-b border-white/5 pb-8 tracking-wide">
+            Get In Touch
+          </h2>
+          
+          <div className="space-y-10">
+            <div className="flex items-start space-x-6">
+              <div className="bg-gold/10 p-3 rounded-full">
+                <MapPin className="text-gold" size={24} />
+              </div>
+              <div>
+                <h3 className="text-gold uppercase tracking-[0.2em] text-[10px] font-bold mb-3">Location</h3>
+                <p className="text-zinc-400 font-light leading-relaxed text-base">
+                  123 5th Ave<br />
+                  New York, NY 10003<br />
+                  USA
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-start space-x-6 group">
-            <Phone className="text-gold mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" size={32} />
-            <div>
-              <h3 className="text-gold uppercase tracking-[0.2em] text-xs font-bold mb-3">Phone</h3>
-              <p className="text-zinc-400 font-light leading-relaxed text-lg tracking-wider">+1 212 555 0198</p>
+            <div className="flex items-start space-x-6">
+              <div className="bg-gold/10 p-3 rounded-full">
+                <Phone className="text-gold" size={24} />
+              </div>
+              <div>
+                <h3 className="text-gold uppercase tracking-[0.2em] text-[10px] font-bold mb-3">Phone</h3>
+                <p className="text-zinc-400 font-light leading-relaxed text-lg tracking-wider">+1 212 555 0198</p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-start space-x-6 group">
-            <Mail className="text-gold mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" size={32} />
-            <div>
-              <h3 className="text-gold uppercase tracking-[0.2em] text-xs font-bold mb-3">Email</h3>
-              <p className="text-zinc-400 font-light leading-relaxed">appointments@apexgrooming.com</p>
+            <div className="flex items-start space-x-6">
+              <div className="bg-gold/10 p-3 rounded-full">
+                <Mail className="text-gold" size={24} />
+              </div>
+              <div>
+                <h3 className="text-gold uppercase tracking-[0.2em] text-[10px] font-bold mb-3">Email</h3>
+                <p className="text-zinc-400 font-light leading-relaxed text-base">appointments@apexgrooming.com</p>
+              </div>
             </div>
-          </div>
-
-          <div className="pt-10 border-t border-gold/10">
-            <h3 className="text-gold uppercase tracking-[0.2em] text-xs font-bold mb-6">Opening Hours</h3>
-            <ul className="space-y-3 text-zinc-400 font-light">
-              <li className="flex justify-between items-center"><span className="uppercase tracking-widest text-[10px]">Mon - Fri</span> <span className="text-zinc-200">10:00 - 19:00</span></li>
-              <li className="flex justify-between items-center"><span className="uppercase tracking-widest text-[10px]">Saturday</span> <span className="text-zinc-200">09:00 - 17:00</span></li>
-              <li className="flex justify-between items-center"><span className="uppercase tracking-widest text-[10px]">Sunday</span> <span className="text-zinc-700 italic">Closed</span></li>
-            </ul>
           </div>
         </div>
 
-        {/* Professional Google Map API Integration */}
-        <div className="h-[650px] border border-zinc-800 relative bg-zinc-950 overflow-hidden shadow-2xl">
-          <div ref={mapRef} className="w-full h-full opacity-80 hover:opacity-100 transition-opacity duration-1000" />
-          <div className="absolute inset-0 pointer-events-none border-[20px] border-zinc-950/20 mix-blend-overlay"></div>
+        {/* Opening Hours Card */}
+        <div className="bg-zinc-900/20 p-10 lg:p-14 border border-zinc-800/30 backdrop-blur-sm rounded-sm flex flex-col justify-center">
+          <div className="flex items-center space-x-4 mb-10 border-b border-white/5 pb-8">
+            <Clock className="text-gold/60" size={28} />
+            <h2 className="text-3xl font-serif text-zinc-100 tracking-wide">
+              Opening Hours
+            </h2>
+          </div>
+          
+          <ul className="space-y-6">
+            <li className="flex justify-between items-center border-b border-white/5 pb-4 group">
+              <span className="uppercase tracking-[0.3em] text-[10px] text-zinc-500 group-hover:text-zinc-300 transition-colors">Monday - Friday</span>
+              <span className="text-zinc-300 font-serif text-lg tracking-wider">10:00 - 19:00</span>
+            </li>
+            <li className="flex justify-between items-center border-b border-white/5 pb-4 group">
+              <span className="uppercase tracking-[0.3em] text-[10px] text-zinc-500 group-hover:text-zinc-300 transition-colors">Saturday</span>
+              <span className="text-zinc-300 font-serif text-lg tracking-wider">09:00 - 17:00</span>
+            </li>
+            <li className="flex justify-between items-center pb-4 group">
+              <span className="uppercase tracking-[0.3em] text-[10px] text-zinc-700">Sunday</span>
+              <span className="text-zinc-600 font-serif text-lg italic">Closed</span>
+            </li>
+          </ul>
+
+          <div className="mt-12 p-6 bg-gold/5 border border-gold/10 rounded-sm">
+            <p className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] leading-relaxed text-center italic">
+              "Grooming is the secret of real elegance."
+            </p>
+          </div>
         </div>
       </div>
     </div>
