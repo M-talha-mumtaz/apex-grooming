@@ -47,7 +47,7 @@ const connectDB = async () => {
         price: 15,
         duration: 20,
         category: 'Beard',
-        image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop'
+        image: 'https://images.unsplash.com/photo-1590540179852-2110a54f813a?q=80&w=800&auto=format&fit=crop'
       },
       {
         name: 'Hair Styling',
@@ -87,7 +87,7 @@ const seedDatabase = async (Service) => {
       price: 15,
       duration: 20,
       category: 'Beard',
-      image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1590540179852-2110a54f813a?q=80&w=800&auto=format&fit=crop'
     },
     {
       name: 'Hair Styling',

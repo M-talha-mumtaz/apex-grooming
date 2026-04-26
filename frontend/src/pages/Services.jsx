@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // Guaranteed luxury men's grooming photography from Pexels
 const defaultImages = {
   'Haircut': 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80',
-  'Beard Trim': 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80',
+  'Beard Trim': 'https://images.unsplash.com/photo-1590540179852-2110a54f813a?q=80&w=800&auto=format&fit=crop',
   'Hair Styling': 'https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=800&q=80'
 };
 
