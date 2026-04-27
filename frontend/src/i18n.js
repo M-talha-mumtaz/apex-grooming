@@ -17,15 +17,26 @@ const resources = {
   }
 };
 
+// Temporarily override console.log to suppress the Locize promotion message
+const originalLog = console.log;
+console.log = (...args) => {
+  if (args[0] && typeof args[0] === 'string' && args[0].includes('locize')) return;
+  originalLog(...args);
+};
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
     fallbackLng: 'en',
+    debug: false,
     interpolation: {
       escapeValue: false
     }
   });
+
+// Restore original console.log
+console.log = originalLog;
 
 export default i18n;

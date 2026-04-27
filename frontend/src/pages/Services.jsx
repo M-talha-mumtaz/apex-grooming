@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
+import { useStore } from '../store/useStore';
 import beardTrimImg from '../assets/beard-trim.jpg';
 import hairCutImg from '../assets/hair-cut.jpg';
 import hairStylingImg from '../assets/hair-styling.jpg';
@@ -17,29 +17,11 @@ const defaultImages = {
 
 const Services = () => {
   const { t } = useTranslation();
-  const [services, setServices] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { services, isLoadingServices: isLoading, fetchServices } = useStore();
   
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/services`);
-        
-        const uniqueData = Array.from(new Map(data.map(item => [item.name, item])).values());
-        const targetNames = ['Haircut', 'Beard Trim', 'Hair Styling'];
-        const strictlyThree = uniqueData.filter(item => targetNames.includes(item.name));
-        strictlyThree.sort((a, b) => targetNames.indexOf(a.name) - targetNames.indexOf(b.name));
-        
-        setServices(strictlyThree);
-      } catch (error) {
-        console.error('Error fetching services', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchServices();
-  }, []);
+  }, [fetchServices]);
 
   return (
     <div className="min-h-screen pt-40 pb-32 px-6 max-w-[1400px] mx-auto">

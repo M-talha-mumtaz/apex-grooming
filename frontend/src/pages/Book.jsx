@@ -4,11 +4,11 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Loader2 } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
+import { useStore } from '../store/useStore';
 
 const Book = () => {
   const { t } = useTranslation();
-  const [services, setServices] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { services, isLoadingServices: isLoading, fetchServices } = useStore();
   
   const [formData, setFormData] = useState({
     clientName: '', clientEmail: '', clientPhone: '', selectedServices: [], date: '', timeSlot: '', notes: ''
@@ -23,39 +23,24 @@ const Book = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/services`);
-        const uniqueData = Array.from(new Map(data.map(item => [item.name, item])).values());
-
-        // Ensure exactly 3 services are shown if they exist
-        const targetNames = ['Haircut', 'Beard Trim', 'Hair Styling'];
-        const strictlyThree = uniqueData.filter(item => targetNames.includes(item.name));
-        strictlyThree.sort((a, b) => targetNames.indexOf(a.name) - targetNames.indexOf(b.name));
-
-        const finalServices = strictlyThree.length > 0 ? strictlyThree : uniqueData;
-        setServices(finalServices);
-
-        // Pre-select service from URL if present
-        const serviceNameFromUrl = searchParams.get('service');
-        if (serviceNameFromUrl) {
-          const matchedService = finalServices.find(s => s.name === serviceNameFromUrl);
-          if (matchedService) {
-            setFormData(prev => ({
-              ...prev,
-              selectedServices: [matchedService._id]
-            }));
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching services', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchServices();
-  }, [searchParams]);
+  }, [fetchServices]);
+
+  useEffect(() => {
+    // Pre-select service from URL if present and services are loaded
+    if (services.length > 0) {
+      const serviceNameFromUrl = searchParams.get('service');
+      if (serviceNameFromUrl) {
+        const matchedService = services.find(s => s.name === serviceNameFromUrl);
+        if (matchedService) {
+          setFormData(prev => ({
+            ...prev,
+            selectedServices: [matchedService._id]
+          }));
+        }
+      }
+    }
+  }, [services, searchParams]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
