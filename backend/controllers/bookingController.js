@@ -7,6 +7,15 @@ const createBooking = async (req, res) => {
   try {
     const { clientName, clientEmail, clientPhone, services, serviceNames, date, timeSlot, notes } = req.body;
 
+    // Prevent past date bookings
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Only compare the date part
+    
+    if (selectedDate < today) {
+      return res.status(400).json({ message: 'You cannot book an appointment for a past date.' });
+    }
+
     // Check for double booking
     const existingBooking = await Booking.findOne({
       date,
@@ -121,4 +130,24 @@ const deleteBooking = async (req, res) => {
   }
 };
 
-module.exports = { createBooking, getBookings, updateBookingStatus, deleteBooking };
+// @desc    Get busy time slots for a date
+// @route   GET /api/bookings/busy
+// @access  Public
+const getBusySlots = async (req, res) => {
+  try {
+    const { date } = req.query;
+    if (!date) return res.status(400).json({ message: 'Date is required' });
+    
+    const bookings = await Booking.find({ 
+      date, 
+      status: { $in: ['pending', 'accepted'] } 
+    }).select('timeSlot');
+    
+    const busySlots = bookings.map(b => b.timeSlot);
+    res.json(busySlots);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { createBooking, getBookings, updateBookingStatus, deleteBooking, getBusySlots };

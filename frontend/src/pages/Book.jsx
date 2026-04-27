@@ -19,12 +19,29 @@ const Book = () => {
   });
 
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
+  const [busySlots, setBusySlots] = useState([]);
 
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     fetchServices();
   }, [fetchServices]);
+
+  useEffect(() => {
+    const fetchBusySlots = async () => {
+      if (!formData.date) {
+        setBusySlots([]);
+        return;
+      }
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/bookings/busy?date=${formData.date}`);
+        setBusySlots(data);
+      } catch (error) {
+        console.error('Error fetching busy slots', error);
+      }
+    };
+    fetchBusySlots();
+  }, [formData.date]);
 
   useEffect(() => {
     // Pre-select service from URL if present and services are loaded
@@ -43,7 +60,13 @@ const Book = () => {
   }, [services, searchParams]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Reset time slot if date changes
+    if (name === 'date') {
+      setFormData(prev => ({ ...prev, timeSlot: '' }));
+    }
   };
 
   const handleBlur = (field) => {
@@ -62,6 +85,7 @@ const Book = () => {
   };
 
   const handleTimeSelect = (time) => {
+    if (busySlots.includes(time)) return; // Prevent selection if busy
     setFormData({ ...formData, timeSlot: time });
     setTouched({ ...touched, timeSlot: true });
   };
@@ -204,6 +228,7 @@ const Book = () => {
                 required
                 type="date"
                 name="date"
+                min={new Date().toISOString().split('T')[0]}
                 value={formData.date}
                 onChange={handleChange}
                 onBlur={() => handleBlur('date')}
@@ -214,18 +239,26 @@ const Book = () => {
             <div className="relative">
               <label className="block text-neutral-400 text-xs tracking-[0.2em] mb-5 uppercase">Select Time <span className="text-red-500">*</span></label>
               <div className="grid grid-cols-4 gap-3">
-                {['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'].map(t => (
-                  <div
-                    key={t}
-                    onClick={() => handleTimeSelect(t)}
-                    className={`cursor-pointer py-4 text-center transition-all duration-300 border text-sm tracking-widest ${formData.timeSlot === t
-                        ? 'border-gold bg-gold text-neutral-950 font-semibold shadow-gold-glow'
-                        : 'border-neutral-800 bg-neutral-900/30 text-neutral-400 hover:border-gold/30 hover:text-gold'
-                      }`}
-                  >
-                    {t}
-                  </div>
-                ))}
+                {['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'].map(t => {
+                  const isBusy = busySlots.includes(t);
+                  const isSelected = formData.timeSlot === t;
+                  
+                  return (
+                    <div
+                      key={t}
+                      onClick={() => handleTimeSelect(t)}
+                      className={`py-4 text-center transition-all duration-300 border text-sm tracking-widest ${
+                        isBusy 
+                          ? 'border-neutral-900 bg-neutral-950/50 text-neutral-700 cursor-not-allowed line-through' 
+                          : isSelected
+                            ? 'border-gold bg-gold text-neutral-950 font-semibold shadow-gold-glow cursor-pointer'
+                            : 'border-neutral-800 bg-neutral-900/30 text-neutral-400 hover:border-gold/30 hover:text-gold cursor-pointer'
+                        }`}
+                    >
+                      {t}
+                    </div>
+                  );
+                })}
               </div>
               {renderError('timeSlot', 'Time is required')}
             </div>
