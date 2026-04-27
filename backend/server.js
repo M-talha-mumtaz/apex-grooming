@@ -11,6 +11,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public')); // Serve static files from public folder
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -39,7 +40,7 @@ const connectDB = async () => {
         price: 25,
         duration: 30,
         category: 'Hair',
-        image: '/hair-cut.jpg'
+        image: '/images/services/hair-cut.jpg'
       },
       {
         name: 'Beard Trim',
@@ -47,7 +48,7 @@ const connectDB = async () => {
         price: 15,
         duration: 20,
         category: 'Beard',
-        image: '/beard-trim.jpg'
+        image: '/images/services/beard-trim.jpg'
       },
       {
         name: 'Hair Styling',
@@ -55,7 +56,7 @@ const connectDB = async () => {
         price: 30,
         duration: 25,
         category: 'Styling',
-        image: '/hair-styling.jpg'
+        image: '/images/services/hair-styling.jpg'
       }
     ]);
     console.log('Database wiped and seeded exactly 3 times.');
@@ -79,7 +80,7 @@ const seedDatabase = async (Service) => {
       price: 25,
       duration: 30,
       category: 'Hair',
-      image: '/hair-cut.jpg'
+      image: '/images/services/hair-cut.jpg'
     },
     {
       name: 'Beard Trim',
@@ -87,7 +88,7 @@ const seedDatabase = async (Service) => {
       price: 15,
       duration: 20,
       category: 'Beard',
-      image: '/beard-trim.jpg'
+      image: '/images/services/beard-trim.jpg'
     },
     {
       name: 'Hair Styling',
@@ -95,7 +96,7 @@ const seedDatabase = async (Service) => {
       price: 30,
       duration: 25,
       category: 'Styling',
-      image: '/hair-styling.jpg'
+      image: '/images/services/hair-styling.jpg'
     }
   ]);
   console.log('Seeding complete.');

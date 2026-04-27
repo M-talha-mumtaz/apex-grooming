@@ -11,7 +11,7 @@ const services = [
     price: 25,
     duration: 30,
     category: 'Hair',
-    image: '/hair-cut.jpg'
+    image: '/images/services/hair-cut.jpg'
   },
   {
     name: 'Beard Trim',
@@ -19,7 +19,7 @@ const services = [
     price: 15,
     duration: 20,
     category: 'Beard',
-    image: '/beard-trim.jpg'
+    image: '/images/services/beard-trim.jpg'
   },
   {
     name: 'Hair Styling',
@@ -27,7 +27,7 @@ const services = [
     price: 30,
     duration: 25,
     category: 'Styling',
-    image: '/hair-styling.jpg'
+    image: '/images/services/hair-styling.jpg'
   }
 ];
 
