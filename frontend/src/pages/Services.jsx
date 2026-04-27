@@ -5,12 +5,14 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import beardTrimImg from '../assets/beard-trim.jpg';
+import hairCutImg from '../assets/hair-cut.jpg';
+import hairStylingImg from '../assets/hair-styling.jpg';
 
 // Guaranteed luxury men's grooming photography from Unsplash
 const defaultImages = {
-  'Haircut': 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80',
+  'Haircut': hairCutImg,
   'Beard Trim': beardTrimImg,
-  'Hair Styling': 'https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=800&q=80'
+  'Hair Styling': hairStylingImg
 };
 
 const Services = () => {
@@ -49,7 +51,7 @@ const Services = () => {
       {isLoading ? (
         <div className="flex flex-col items-center justify-center py-24 space-y-4">
           <Loader2 className="animate-spin text-gold" size={48} />
-          <span className="text-zinc-500 uppercase tracking-[0.3em] text-[10px]">Loading Collections...</span>
+          <span className="text-zinc-500 uppercase tracking-[0.3em] text-[10px]">Loading Services...</span>
         </div>
       ) : services.length === 0 ? (
         <div className="text-center py-24">
