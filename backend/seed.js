@@ -11,7 +11,7 @@ const services = [
     price: 25,
     duration: 30,
     category: 'Hair',
-    image: 'https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=800&q=80'
+    image: '/hair-cut.jpg'
   },
   {
     name: 'Beard Trim',
@@ -19,7 +19,7 @@ const services = [
     price: 15,
     duration: 20,
     category: 'Beard',
-    image: 'https://images.unsplash.com/photo-1621644026362-7de1c071cd81?auto=format&fit=crop&w=800&q=80'
+    image: '/beard-trim.jpg'
   },
   {
     name: 'Hair Styling',
@@ -27,7 +27,7 @@ const services = [
     price: 30,
     duration: 25,
     category: 'Styling',
-    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80'
+    image: '/hair-styling.jpg'
   }
 ];
 

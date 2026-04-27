@@ -39,7 +39,7 @@ const connectDB = async () => {
         price: 25,
         duration: 30,
         category: 'Hair',
-        image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop'
+        image: '/hair-cut.jpg'
       },
       {
         name: 'Beard Trim',
@@ -47,7 +47,7 @@ const connectDB = async () => {
         price: 15,
         duration: 20,
         category: 'Beard',
-        image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop'
+        image: '/beard-trim.jpg'
       },
       {
         name: 'Hair Styling',
@@ -55,7 +55,7 @@ const connectDB = async () => {
         price: 30,
         duration: 25,
         category: 'Styling',
-        image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800&auto=format&fit=crop'
+        image: '/hair-styling.jpg'
       }
     ]);
     console.log('Database wiped and seeded exactly 3 times.');
@@ -79,7 +79,7 @@ const seedDatabase = async (Service) => {
       price: 25,
       duration: 30,
       category: 'Hair',
-      image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop'
+      image: '/hair-cut.jpg'
     },
     {
       name: 'Beard Trim',
@@ -87,7 +87,7 @@ const seedDatabase = async (Service) => {
       price: 15,
       duration: 20,
       category: 'Beard',
-      image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop'
+      image: '/beard-trim.jpg'
     },
     {
       name: 'Hair Styling',
@@ -95,7 +95,7 @@ const seedDatabase = async (Service) => {
       price: 30,
       duration: 25,
       category: 'Styling',
-      image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop'
+      image: '/hair-styling.jpg'
     }
   ]);
   console.log('Seeding complete.');

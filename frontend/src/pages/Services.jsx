@@ -4,16 +4,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { useStore } from '../store/useStore';
-import beardTrimImg from '../assets/beard-trim.jpg';
-import hairCutImg from '../assets/hair-cut.jpg';
-import hairStylingImg from '../assets/hair-styling.jpg';
-
-// Guaranteed luxury men's grooming photography from Unsplash
-const defaultImages = {
-  'Haircut': hairCutImg,
-  'Beard Trim': beardTrimImg,
-  'Hair Styling': hairStylingImg
-};
 
 const Services = () => {
   const { t } = useTranslation();
@@ -42,8 +32,6 @@ const Services = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative" style={{ perspective: 2000 }}>
           {services.map((service, index) => {
-            const displayImage = defaultImages[service.name] || service.image;
-
             return (
               <motion.div 
                 key={service._id} 
@@ -59,12 +47,12 @@ const Services = () => {
                 className="group relative overflow-hidden bg-zinc-900/50 flex flex-col backdrop-blur-md rounded-sm border border-zinc-800/80 hover:border-gold/40 transition-colors duration-500 will-change-transform"
                 style={{ transformStyle: 'preserve-3d' }}
               >
-                {displayImage && (
+                {service.image && (
                   <div className="w-full h-[220px] overflow-hidden bg-black relative">
                     <div className="absolute inset-0 bg-neutral-950/30 group-hover:bg-neutral-950/0 transition-colors duration-700 z-10" />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent z-20 opacity-95" />
                     <img 
-                      src={displayImage} 
+                      src={service.image} 
                       alt={service.name} 
                       loading="lazy" 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] ease-out grayscale contrast-[1.15] brightness-[0.75] group-hover:brightness-[0.9] sepia-[0.2]" 
