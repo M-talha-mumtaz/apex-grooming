@@ -275,12 +275,12 @@ const Book = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div className="relative">
                 <label className="block text-neutral-500 text-xs tracking-[0.2em] mb-2 uppercase">Full Name <span className="text-red-500">*</span></label>
-                <input required name="clientName" value={formData.clientName} onChange={handleChange} onBlur={() => handleBlur('clientName')} className={`w-full bg-transparent border-b text-neutral-200 px-2 py-4 focus:outline-none transition-colors font-light tracking-wide ${touched.clientName && !formData.clientName ? 'border-red-500 focus:border-red-500' : 'border-neutral-800 focus:border-gold'}`} placeholder="John Doe" />
+                <input required name="clientName" value={formData.clientName} onChange={handleChange} onBlur={() => handleBlur('clientName')} className={`w-full bg-transparent border-b text-neutral-200 px-2 py-4 focus:outline-none transition-colors font-light tracking-wide ${touched.clientName && !formData.clientName ? 'border-red-500 focus:border-red-500' : 'border-neutral-800 focus:border-gold'}`} placeholder="Enter Your Name" />
                 {renderError('clientName', 'Name is required')}
               </div>
               <div className="relative">
                 <label className="block text-neutral-500 text-xs tracking-[0.2em] mb-2 uppercase">Email <span className="text-red-500">*</span></label>
-                <input required type="email" name="clientEmail" value={formData.clientEmail} onChange={handleChange} onBlur={() => handleBlur('clientEmail')} className={`w-full bg-transparent border-b text-neutral-200 px-2 py-4 focus:outline-none transition-colors font-light tracking-wide ${touched.clientEmail && !formData.clientEmail ? 'border-red-500 focus:border-red-500' : 'border-neutral-800 focus:border-gold'}`} placeholder="john@example.com" />
+                <input required type="email" name="clientEmail" value={formData.clientEmail} onChange={handleChange} onBlur={() => handleBlur('clientEmail')} className={`w-full bg-transparent border-b text-neutral-200 px-2 py-4 focus:outline-none transition-colors font-light tracking-wide ${touched.clientEmail && !formData.clientEmail ? 'border-red-500 focus:border-red-500' : 'border-neutral-800 focus:border-gold'}`} placeholder="Enter Your Email" />
                 {renderError('clientEmail', 'Valid email is required')}
               </div>
             </div>
